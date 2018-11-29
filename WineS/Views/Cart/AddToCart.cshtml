@@ -1,0 +1,12 @@
+﻿@model WineS.Models.Cart
+<script src="/Scripts/simpleCart.min.js"> </script>
+<div class="cart box_1">
+    <a href="@Url.Action("Index", "Cart", new { returnUrl = Request.Url.PathAndQuery })">
+        <h4>
+            <span class="glyphicon">
+                @Model.ComputeTotalValue().ToString("$#")
+            </span><img src="/images/bag.png" alt="">
+        </h4>
+    </a>
+    <div class="clearfix"> </div>
+</div>

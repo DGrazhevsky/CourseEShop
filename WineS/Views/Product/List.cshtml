@@ -1,0 +1,282 @@
+﻿@using WineS.Entities
+@using WineS.ViewModels
+@using WineS.Helpers
+@model ProductListViewModel
+
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Content/component.css" rel='stylesheet' type='text/css' />
+<!-- content-section-starts -->
+<div class="container">
+    <div class="products-page">
+        <div class="products">
+            <div class="product-listy">
+                <h2>our Products</h2>
+                <ul class="product-list">
+                    <li><a href="">New Products</a></li>
+                    <li><a href="">Old Products</a></li>
+                    <li><a href="">T-shirts</a></li>
+                    <li><a href="">pants</a></li>
+                    <li><a href="">Dress</a></li>
+                    <li><a href="">Shorts</a></li>
+                    <li><a href="#">Shirts</a></li>
+                    <li><a href="@Url.Action("Register", "Account")">Register</a></li>
+                </ul>
+            </div>
+            <div class="latest-bis">
+                <img src="/images/l4.jpg" class="img-responsive" alt="" />
+                <div class="offer">
+                    <p>40%</p>
+                    <small>Top Offer</small>
+                </div>
+            </div>
+            <div class="tags">
+                <h4 class="tag_head">Tags Widget</h4>
+                <ul class="tags_links">
+                    <li><a href="#">Kitesurf</a></li>
+                    <li><a href="#">Super</a></li>
+                    <li><a href="#">Duper</a></li>
+                    <li><a href="#">Theme</a></li>
+                    <li><a href="#">Men</a></li>
+                    <li><a href="#">Women</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Best</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Men</a></li>
+                    <li><a href="#">Apparel</a></li>
+                    <li><a href="#">Super</a></li>
+                    <li><a href="#">Duper</a></li>
+                    <li><a href="#">Theme</a></li>
+                    <li><a href="#">Responsive</a></li>
+                    <li><a href="#">Women</a></li>
+                    <li><a href="#">Equipment</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+        <div class="new-product">
+            <div class="new-product-top">
+                <ul class="product-top-list">
+                    <li><a href="index.html">Home</a>&nbsp;<span>&gt;</span></li>
+                    <li><span class="act">@Model.CategoryName</span>&nbsp;</li>
+                </ul>
+                <p class="back">@Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })</p>
+                <div class="clearfix"></div>
+            </div>
+            <div class="mens-toolbar">
+                <div class="sort">
+                    <div class="sort-by">
+                        <label>Sort By</label>
+                        @Html.DropDownListFor(m => m.PageSort, Model.PageSortList, new { id = "pageSorts" })
+                        @*<select>
+                            <option value="">
+                                Position
+                            </option>
+                            <option value="">
+                                Name
+                            </option>
+                            <option value="">
+                                Price
+                            </option>
+                        </select>*@
+                        <a href=""><img src="images/arrow2.gif" alt="" class="v-middle"></a>
+                    </div>
+                </div>
+                <ul class="women_pagenation">
+                    <li>Page:</li>
+                   @{
+                       var x1 = Model.PageSort;
+                   }
+                        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, pageSize = Model.PageSize, Sort = Model.PageSort, CategoryName = Model.CategoryName }))
+                    @*<li>@Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))</li>*@
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
+                <div class="cbp-vm-options">
+                    <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid" title="grid">Grid View</a>
+                    <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list" title="list">List View</a>
+                </div>
+                <div class="pages">
+                    <div class="limiter visible-desktop">
+                        <label>Show</label>
+                        @*@Html.DropDownListFor(m=>m.PageSize, new SelectList(new int[] { 3, 6, 9 }), new { id = "pageItems"}))*@
+                        
+                        @Html.DropDownListFor(m => m.PageSize, Model.PageSizeList, new { id = "pageItems" })
+                        @Html.HiddenFor(m => m.PageSize)
+                        
+                        
+                        
+                        <script type="text/javascript">
+
+                            $(document).ready(function() {
+                                $("#pageItems").change(function() {
+                                        $.ajax({
+                                            url: '/Product/ChangePageItems',
+                                            type: "post",
+                                            cache: false,
+                                            dataType: 'json',
+                                            contentType: 'application/json',
+                                            data: JSON.stringify({'pageSize': $('#pageItems').val(), 'CategoryName': '@Model.CategoryName' }),
+                                            success: function(response) {
+                                                if (response.result == 'Redirect')
+                                                    window.location = response.url;
+                                            }
+                                        });
+                                    }
+                                );
+                                $("#pageSorts").change(function() {
+                                        $.ajax({
+                                            url: '/Product/ChangePageSorts',
+                                            type: 'post',
+                                            dataType: 'json',
+                                            contentType: 'application/json',
+                                            data: JSON.stringify({'pageSort': $('#pageSorts').val(), 'CategoryName': '@Model.CategoryName' }),
+                                            cache: false,
+                                            success: function(response) {
+                                                if (response.result == 'Redirect')
+                                                    window.location = response.url;
+                                            }
+                                        });
+                                    }
+                                )
+                            })
+                            @*$(document).ready(function() {
+                                $("#items").change(function () {
+                                    var x = $('#items').val();
+                                    var url = '@Url.Action("ChangePageItems", "Product")';
+                                    $.post(url, { pageSize: x});
+                                    if (response.result == 'Redirect')
+                                        window.location = response.url;
+
+                                });
+                            })*@
+                        </script>
+
+                        @*@Html.DropDownListFor(m=>m.PageSize, Model.PageSizeList, new { id = "items" })
+                        @Html.HiddenFor(m=>m.PageSize)*@
+                        
+
+                        @*@Html.DropDownList("pageItems", new SelectList(new int[] { 3, 6, 9 })))*@
+                       
+                        @*Html.DropDownList(
+                        string name,
+                        IEnumerable<SelectListItem> selectList,
+                        string optionLabel,
+                        object htmlAttributes)*@ 
+                        @*@Html.DropDownListFor(m => m.SelectedMake, Model.MakesList, new { id="ddlMake"})*@
+                        @*<select>
+                            <option value="" selected="selected">
+                                3
+                            </option>
+                            <option value="">
+                                6
+                            </option>
+                            <option value="">
+                                9
+                            </option>
+                        </select>*@ per page
+                        
+                        <script>
+                            //$(document).ready(function() {
+                            //    $.ajax({
+                            //        url: '/Product/ChangePageItems',
+                            //        type: "post",
+                            //                 cache: false,
+                            //        data: { pageSize: $('#pageItems').val() }
+                            //    })})
+                            //do whatever with the result.
+                            
+                        
+
+
+
+
+
+                            //$(document).ready(function() {
+                            //    $("#pageItems").change(function() {
+                            //        $.ajax({
+                            //            url: '/Product/ChangePageItems',
+                            //            type: "post",
+                            //            cache: false,
+                            //            data: { pageSize: $('#pageItems').val() },
+                            //            success: {
+
+                            //            }
+                            //        });
+                            //    }
+                            //)})
+
+                        </script>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <ul>
+                    @foreach (var p in @Model.Products)
+                    {
+                        <li>
+                            @Html.Partial("ConcreteProduct", p)
+                    </li>
+                            }
+</ul>
+				</div>
+<script src="/Scripts/cbpViewModeSwitch.js" type="text/javascript"></script>
+<script src="/Scripts/classie.js" type="text/javascript"></script>
+			</div>
+<div class="clearfix"></div>
+			</div>
+<div class="clearfix"></div>
+   </div>
+<!-- content-section-ends -->
+<div class="other-products">
+    <div class="container">
+        <h3 class="like text-center">Featured Collection</h3>
+        <ul id="flexiselDemo3">
+            @foreach (var product in Model.RelatedProducts)
+            {
+                <li>
+                    <a href="@Url.Action("ConcreteProductPage", "Product", new{Id = product.Id})"><img src="@Url.Action("GetImage", "Product", new {gameId = product.Id})" class="img-responsive" alt=""/></a>
+                    <div class="product liked-product simpleCart_shelfItem">
+                        <a class="like_name" href="@Url.Action("ConcreteProductPage", "Product", new{Id = product.Id})">@product.Title</a>
+                        <p><i></i> <span class=" item_price">$@Ajax.ActionLink(product.Price.ToString(), "AddToCart", "Cart", 
+                                                                  new {returnUrl = Request.Url.PathAndQuery, Id = product.Id},
+                                                                  new AjaxOptions { UpdateTargetId = "ajaxexampl" }, new {@class = "item_add"})</span></p>
+                    </div>
+                </li>
+            }
+        
+        </ul>
+        <script type="text/javascript">
+            $(window).load(function() {
+                $("#flexiselDemo3").flexisel({
+                    visibleItems: 4,
+                    animationSpeed: 1000,
+                    autoPlay: true,
+                    autoPlaySpeed: 3000,
+                    pauseOnHover: true,
+                    enableResponsiveBreakpoints: true,
+                    responsiveBreakpoints: {
+                        portrait: {
+                            changePoint:480,
+                            visibleItems: 1
+                        },
+                        landscape: {
+                            changePoint:640,
+                            visibleItems: 2
+                        },
+                        tablet: {
+                            changePoint:768,
+                            visibleItems: 3
+                        }
+                    }
+                });
+
+            });
+        </script>
+        <script type="text/javascript" src="/Scripts/jquery.flexisel.js"></script>
+    </div>
+</div>

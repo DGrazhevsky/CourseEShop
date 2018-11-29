@@ -1,0 +1,21 @@
+﻿@model WineS.Models.Cart
+
+@*<div class="navbar-right">
+        @Html.ActionLink("Заказать", "Index", "Cart",
+        new { returnUrl = Request.Url.PathAndQuery },
+        new { @class = "btn btn-default navbar-btn" })
+    </div>*@
+<script src="/Scripts/simpleCart.min.js"> </script>
+<div class="cart box_1">
+    @*<a href="NewCheckout.html">*@
+    <a href="@Url.Action("Index", "Cart", new { returnUrl = Request.Url.PathAndQuery })">
+        <h4>
+            <span class="glyphicon">
+                @*<span class="simpleCart_total">*@
+                @Model.ComputeTotalValue().ToString("$#")
+            </span><img src="/images/bag.png" alt="">
+        </h4>
+    </a>
+    @*<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>*@
+    <div class="clearfix"> </div>
+</div>

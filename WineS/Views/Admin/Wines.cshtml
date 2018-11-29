@@ -1,0 +1,77 @@
+﻿@using WineS.Entities
+@using WineS.ViewModels
+@using WineS.Helpers
+@model WineListViewModel
+@{
+    ViewBag.Title = "Список вин!";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="panel panel-default">
+
+        <div class="row tab-block">
+            <div class="tab-block-row-block">
+                <a class="activated" href="@Url.Action("Wines", "Admin")">
+                    Список товаров
+                </a>
+            </div>
+            <div class="tab-block-row-block">
+                <a href="@Url.Action("Orders", "Admin")">
+                    Список заказов
+                </a>
+            </div>
+        </div>
+       
+        <div class="panel-body">
+            <table class="table table-striped table-condensed table-bordered">
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Название</th>
+                    <th class="text-center">Цена</th>
+                    <th class="text-center">Страна</th>
+                    <th class="text-center">Объем</th>
+                    <th class="text-center">Производитель</th>
+                    <th class="text-center">Год</th>
+                    <th class="text-center">Цвет</th>
+                    <th class="text-center">Сладость</th>
+                    <th class="text-center">Количество</th>
+                    <th class="text-center">Действие</th>
+                </tr>
+                @foreach (var item in Model.Wines)
+            {
+                    <tr>
+                        <td class="text-right">@item.Id</td>
+                        <td>@Html.ActionLink(item.Title, "Edit", new { item.Id })</td>
+                        <td class="text-right">@item.Price.ToString("# гривен")</td>
+                        <td class="text-right">@item.Country</td>
+                        <td class="text-right">@item.Capacity</td>
+                        <td class="text-right">@item.Manufacturer</td>
+                        <td class="text-right">@item.Year</td>
+                        @foreach (var item2 in Model.WineColor.Where(c => c.Id == item.WineColorId))
+                        {
+                            <td class="text-right">@item2.Color</td>
+                        }
+                        @foreach (var item3 in Model.Sweetness.Where(x => x.Id == item.SweetnessId))
+                        {
+                            <td class="text-right">@item3.Title</td>
+                        }
+                        <td class="text-right">@item.Amount</td>
+                        <td class="text-center">
+                            @using (Html.BeginForm("Delete", "Admin"))
+                            {
+                                @Html.Hidden("Id", item.Id)
+                                <input type="submit"
+                                       class="btn btn-default btn-xs"
+                                       value="Удалить" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="panel-footer">
+            @Html.ActionLink("Добавить товар", "Create", "Admin", null,
+            new { @class = "btn btn-default" })
+        </div>
+    </div>

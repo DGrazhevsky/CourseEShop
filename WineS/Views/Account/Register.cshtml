@@ -1,0 +1,76 @@
+﻿@model WineS.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="registration-form">
+    <div class="container">
+        <div class="dreamcrub">
+            <ul class="breadcrumbs">
+                <li class="home">
+                    <a href="@Url.Action("Main", "Main")" title="Go to Home Page">Home</a>&nbsp;
+                    <span>&gt;</span>
+                </li>
+                <li class="home">
+                    Registration
+                </li>
+            </ul>
+            <ul class="previous">
+                <li>@Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })</li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <h2>Registration</h2>
+        <div class="registration-grids">
+            <div class="reg-form">
+                <div class="reg">
+                    <p>Welcome, please enter the following details to continue.</p>
+                    <p>If you have previously registered with us, <a href="@Url.Action("Login", "Account")">click here</a></p>
+                @using (Html.BeginForm())
+                {
+                    <form>
+                        <ul>
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(false)
+                            <li class="text-info">First Name: </li>
+                            <li>@Html.EditorFor(model => model.FirstName)</li>
+                        </ul>
+                        <ul>
+                            <li class="text-info">Last Name: </li>
+                            <li>@Html.EditorFor(model => model.LastName)</li>
+                        </ul>
+                        <ul>
+                            <li class="text-info">Email: </li>
+                            <li>@Html.EditorFor(model => model.Email)</li>
+                        </ul>
+                        <ul>
+                            <li class="text-info">Password: </li>
+                            <li>@Html.EditorFor(model => model.Password)</li>
+                        </ul>
+                        <ul>
+                            <li class="text-info">Re-enter Password:</li>
+                            <li>@Html.EditorFor(model => model.PasswordConfirm)</li>
+                        </ul>
+
+                        <input type="submit" value="REGISTER NOW">
+                        <p class="click">By clicking this button, you are agree to my <a href="#">Policy Terms and Conditions.</a></p>
+                    </form>
+                }
+                </div>
+            </div>
+            <div class="reg-right">
+                <h3>Completely Free Account</h3>
+                <div class="strip"></div>
+                <p>
+                    Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio
+                    libero tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.
+                </p>
+                <h3 class="lorem">Lorem ipsum dolor.</h3>
+                <div class="strip"></div>
+                <p>Tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

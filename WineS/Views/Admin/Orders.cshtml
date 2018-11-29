@@ -1,0 +1,62 @@
+﻿@using WineS.Entities
+@using WineS.ViewModels
+@using WineS.Helpers
+@model OrderListViewModel
+@{
+    ViewBag.Title = "Список заказов!";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-default"> 
+        <div class="row tab-block">
+            <div class="tab-block-row-block ">
+                <a href="@Url.Action("Wines", "Admin")">
+                    Список товаров
+                </a>
+            </div>
+            <div class="tab-block-row-block">
+                <a class="activated" href="@Url.Action("Orders", "Admin")">
+                    Список заказов
+                </a>
+            </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Имя</th>
+                <th class="text-center">Дата заказа</th>
+                <th class="text-center">Состав заказа</th>
+                <th class="text-center">Город</th>
+                <th class="text-center">Общая сумма</th>
+                <th class="text-center">Адрес доставки</th>
+                <th class="text-center">Упакован и отправлен?</th>
+            </tr>
+         
+            @foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td>@Html.ActionLink(item.Id.ToString(), "CheckOrder", new { item.Id })</td>
+                    <td class="text-right">@item.FullName</td>
+                    <td class="text-right">@item.Date_Order.ToString()</td>
+                    <td class="text-right">
+                        @foreach (var item2 in Model.OrderWine.Where(x => x.OrderId == item.Id))
+                        {
+                            var M = Model.wine.Where(x => x.Id == item2.WineId).First();
+                            @M.Title;
+                            @*@item2.WineId*@
+                               <b> @item2.Amount </b>
+                            <br />
+                        }</td>
+                    <td class="text-right">@item.City</td>
+                    <td class="text-right">@item.Total_Cost</td>
+                    <td class="text-right">@item.ShipAddress</td>
+                    <td class="text-right">@item.isChecked</td>
+    
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<

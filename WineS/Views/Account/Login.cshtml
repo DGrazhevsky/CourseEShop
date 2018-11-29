@@ -1,0 +1,67 @@
+﻿@model WineS.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="container">
+        <div class="login-page">
+            <div class="dreamcrub">
+                <ul class="breadcrumbs">
+                    <li class="home">
+                        <a href="@Url.Action("Main", "Main")" title="Go to Home Page">Home</a>&nbsp;
+                        <span>&gt;</span>
+                    </li>
+                    <li>
+                        Login
+                    </li>
+                </ul>
+                <ul class="previous">
+                    <li>@Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer})</li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            @if (ViewBag.fromCart == true)
+            {
+                <h2>Sorry, but you must be authenticated</h2>
+            }
+
+
+            <div class="account_grid">
+                <div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
+                    <h2>NEW CUSTOMERS</h2>
+                    <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
+                    <a class="acount-btn" href="@Url.Action("Register", "Account")">Create an Account</a>
+                </div>
+                <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
+                    <h3>REGISTERED CUSTOMERS</h3>
+                    <p>If you have an account with us, please log in.</p>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <form>
+                            <div>
+                                @Html.ValidationSummary()
+                              
+                                <input type="hidden" name="returnUrl" value="@Request.UrlReferrer" />
+                                @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
+                                <span>Email Address<label></label></span>
+                                @Html.EditorFor(x => x.Email)
+                                @*<input type="text">*@
+                            </div>
+                            <div>
+                                <span>Password<label></label></span>
+                                @Html.EditorFor(x => x.Password)
+                                @*<input type="password">*@
+                            </div>
+                            <a class="forgot" href="#">Forgot Your Password?</a>
+                            <input type="submit" value="Login">
+                        </form>
+                    }
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>

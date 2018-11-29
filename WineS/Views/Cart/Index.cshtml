@@ -1,0 +1,157 @@
+﻿
+
+
+@model WineS.ViewModels.CartViewModel
+@{
+    ViewBag.Title = "newCheckout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="cart-items">
+<div class="container">
+    <div class="dreamcrub">
+        <ul class="breadcrumbs">
+            <li class="home">
+                <a href="@Url.Action("Main", "Main")" title="Go to Home Page">Home</a>&nbsp;
+                <span>&gt;</span>
+            </li>
+            <li >
+                Cart
+            </li>
+        </ul>
+        <ul class="previous">
+            <li>@Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })</li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <h2>MY SHOPPING BAG</h2>
+    <div class="cart-gd">
+      
+        <script>
+            $(document).ready(
+                function () {
+                    $('.close1').on('click', function () {
+                        var $this = $(this);
+                             id = $(this).attr('id');
+                        $.ajax({
+                            url: '/Cart/RemoveFromCart',
+                            type: "post",
+                            cache: false,
+                            data: { id: id },
+                            success: function() {
+                                $this.closest('.cart-header').fadeOut('slow');
+                                
+                            },
+                            error: function(result) {
+                                $(".validation-summary-errors").append("<li>Error connecting to server.</li>");
+                            }
+                        });
+                    });
+                });
+        </script>
+        @foreach (var line in Model.Cart.Lines)
+        {
+          
+            <div class="cart-header">
+                <div class="close1", id =@line.Product.Id> </div>
+                <div class="cart-sec simpleCart_shelfItem">
+                    <div class="cart-item cyc">
+                        <img src="@Url.Action("GetImage", "Product", new {gameId = line.Product.Id})" class="img-responsive" alt="">
+                    </div>
+                    <div class="cart-item-info">
+                        <h3><a href="#"> @line.Product.Title </a><span>Pickup time:</span></h3>
+                        <ul class="qty">
+                            <li><p>Size: @line.Size</p></li>
+                            <li><p>FREE delivery</p></li>
+                        </ul>
+                        <div class="delivery">
+                            <p>Price : $@line.Product.Price</p>
+                            <span>Delivered in 1-1:30 hours</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+
+            
+         }
+        <div class="btn">
+            <form>
+                @Html.ActionLink("Subscribe","Checkout", "Cart");
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @*@model WineS.ViewModels.CartViewModel
+
+            @{
+                ViewBag.Title = "Ваша корзина";
+            }
+
+            <table class="table">
+                <head>
+                    <tr>
+                        <th>Кол-во</th>
+                        <th>Винцо</th>
+                        <th class="text-right">Цена</th>
+                        <th class="text-right">Общая цена</th>
+                    </tr>
+                </head>
+                <tbody>
+                    @foreach (var line in Model.Cart.Lines)
+                    {
+                        <tr>
+                            <td class="text-center">@line.Quantity</td>
+                            <td class="text-left">@line.Wine.Title</td>
+                            <td class="text-right">@line.Wine.Price.ToString("# грн")</td>
+                            <td class="text-right">
+                                @((line.Quantity * line.Wine.Price).ToString("# грн"))
+                            </td>
+                            <td>
+                                @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                                {
+                                    @Html.Hidden("Id", line.Wine.Id)
+                                    @Html.HiddenFor(x => x.ReturnUrl)
+                                    <input class="btn btn-sm btn-warning" type="submit" value="Удалить" />
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-right">Итого:</td>
+                        <td class="text-right">
+                            @Model.Cart.ComputeTotalValue().ToString("# грн")
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="text-center">
+                <a class="btn btn-primary" href="@Model.ReturnUrl">Продолжить покупки</a>
+                @Html.ActionLink("Оформить заказ", "Checkout", null, new { @class = "btn btn-primary" })
+            </div>
+
+            </div>*@

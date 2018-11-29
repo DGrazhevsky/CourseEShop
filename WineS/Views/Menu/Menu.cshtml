@@ -1,0 +1,22 @@
+﻿
+@model IEnumerable<string>
+<div class="container">
+    <div class="col-lg-offset-4 col-lg-8">
+        
+        @foreach (var link in Model)
+        {
+            @Html.RouteLink(link, new
+       {
+           controller = "Wine",
+           action = "List",
+           winecolor = link,
+           page = 1
+       }, new
+       {
+           @class = "btn btn-block btn-default btn-lg"
+    + (link == ViewBag.SelectedColor ? " btn-primary" : "")
+
+       })
+        }
+    </div>
+    </div>

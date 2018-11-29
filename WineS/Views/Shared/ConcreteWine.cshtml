@@ -1,0 +1,49 @@
+﻿@*@model WineS.Entities.Wine
+
+<div class="wine-block">
+    <div class="wine-block-row">
+        <h3>@Model.Title</h3>
+    </div>
+    <div class="wine-block-row">
+        <b>Обьем:</b> @Model.Capacity
+    </div>
+    <div class="wine-block-row">
+        <b>Страна изготовления:</b> @Model.Country
+    </div>
+    <div class="wine-block-row">
+        <b>Производитель:</b> @Model.Manufacturer
+    </div>
+    <div class="wine-block-row">
+        <b>Год производства:</b> @Model.Year
+    </div>
+    <div class="wine-block-row">
+        <b>Цвет:</b> @Model.WineColorId
+    </div>
+    <div class="wine-block-row">
+        <b>Сладость:</b> @Model.SweetnessId
+    </div>
+    <div class="wine-block-row">
+        <b>Цена:</b> @Model.Price.ToString("# грн")
+    </div>
+    <div class="wine-block-row">
+        <b>Количество:</b> @Model.Amount.ToString("# штук")
+    </div>
+    <div class="wine-block-row">
+        @using (Html.BeginForm("AddToCart", "Cart"))
+            {
+
+
+            @Html.HiddenFor(x => x.Id)
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            if (Model.Amount != 0)
+            {
+                <input type="submit" class="btn btn-success " value="Добавить в корзину" />}
+                else
+                {
+                <input type="submit" class="btn btn-success disabled" value="Недоступно" />
+            }
+
+        }
+    </div>
+</div>*@
+

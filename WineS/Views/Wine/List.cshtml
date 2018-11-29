@@ -1,0 +1,19 @@
+﻿@using WineS.Entities
+@using WineS.ViewModels
+@using WineS.Helpers
+@model WineListViewModel
+
+@{
+    ViewBag.Title = "Товары";
+}
+<div class="container">
+    @foreach (var p in @Model.Wines)
+    {
+
+        @Html.Partial("ConcreteWine", p)
+    }
+</div>
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
+        new { page = x, winecolor = Model.currentColor }))
+    </div>

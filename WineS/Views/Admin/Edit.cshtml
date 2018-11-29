@@ -1,0 +1,86 @@
+﻿@using WineS.Entities
+@using WineS.ViewModels
+@using WineS.Helpers
+@model WineS.Entities.Wine
+
+@{
+    ViewBag.Title = "Товар";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3>Редактирование вина «@Model.Title»</h3>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @*@Html.EditorForModel()*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price)
+                @Html.ValidationMessageFor(model => model.Price)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Capacity, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Capacity)
+                @Html.ValidationMessageFor(model => model.Capacity)
+            </div>
+        </div>            <div class="form-group">
+                @Html.LabelFor(model => model.Country, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Country)
+                    @Html.ValidationMessageFor(model => model.Country)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Manufacturer, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Manufacturer)
+                    @Html.ValidationMessageFor(model => model.Manufacturer)
+                </div>
+            </div>                <div class="form-group">
+                    @Html.LabelFor(model => model.Year, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Year)
+                        @Html.ValidationMessageFor(model => model.Year)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Amount, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Amount)
+                        @Html.ValidationMessageFor(model => model.Amount)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SweetnessId, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SweetnessId, ViewBag.Sweets as SelectList)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.WineColorId, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.WineColorId, ViewBag.WineColor as SelectList)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="submit" value="Добавить" />
+                        @Html.ActionLink("Отменить изменения и вернуться к списку", "Wines", "Admin")
+                    </div>
+                </div>
+    }
+</div>
