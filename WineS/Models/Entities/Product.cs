@@ -32,8 +32,8 @@ namespace WineS.Entities
         [Required(ErrorMessage = "Укажите дату")]
         public DateTime DateOfArrival { get; set; }
         [Display(Name = "Размер")]
-        [Required(ErrorMessage = "Укажите размер")]
-        public string Size { get; set; }
+        //[Required(ErrorMessage = "Укажите размер")]
+        //public string Size { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
     

@@ -90,10 +90,15 @@
                     <p class="right">@Model.product.Color</p>
                     <div class="clearfix"></div>
                 </div>
+
+            @using (Ajax.BeginForm("AddToCart","Cart",new {returnUrl = Request.Url.PathAndQuery, Id = Model.product.Id}, new AjaxOptions {UpdateTargetId = "ajaxexampl" }, new { @id = "ajaxForm" }))
+            {
                 <div class="span span4">
                     <p class="left">SIZE</p>
                     <p class="right">
-                        <span class="selection-box">
+                        @*@Html.DropDownListFor(m => m.PageSize, Model.PageSizeList, new { id = "pageItems" })*@
+                        @Html.DropDownListFor(m => m.Size, Model.SizeList, new {@class = "selection-box", @id = "sizedrop"})
+                        @*<span class="selection-box">
                             <select class="domains valid" name="domains">
                                 <option>M</option>
                                 <option>L</option>
@@ -101,24 +106,34 @@
                                 <option>FS</option>
                                 <option>S</option>
                             </select>
-                        </span>
+                        </span>*@
                     </p>
                     <div class="clearfix"></div>
                 </div>
                 <div class="purchase">
-                    @Ajax.ActionLink("Purchase Now", "AddToCart", "Cart",
-                        new { returnUrl = Request.Url.PathAndQuery, Id = Model.product.Id },
-                        new AjaxOptions { UpdateTargetId = "ajaxexampl" }, new { @class = "item_add" })$
-                    @*<a href="#">Purchase Now</a>*@
-                    <div class="social-icons">
-                        <ul>
-                            <li><a class="facebook1" href="#"></a></li>
-                            <li><a class="twitter1" href="#"></a></li>
-                            <li><a class="googleplus1" href="#"></a></li>
-                        </ul>
+                    @*@Ajax.ActionLink("Purchase Now", "AddToCart", "Cart",
+                        new {returnUrl = Request.Url.PathAndQuery, Id = Model.product.Id},
+                        new AjaxOptions {UpdateTargetId = "ajaxexampl"}, new {@class = "item_add"})*@
+                    <div class="sub-left-right">
+                            <input type="submit" value="Purchase" />
+
                     </div>
+                    <span class="item_add">Purchase</span>
+                    @*<a href ="#" onclick="document.forms['ajaxForm'].submit();return false;">Purchase Now</a>*@
+                    <script type="text/javascript">
+
+                            $(document).ready(function() {
+                                $('form#ajaxForm').find('span.item_add').click(function() {
+                                    $('form#ajaxForm').trigger('submit');
+                                });
+                            })
+                            
+                        
+                    </script>
+
                     <div class="clearfix"></div>
                 </div>
+            }
                 <script src="/Scripts/imagezoom.js"></script>
                 <!-- FlexSlider -->
                 <script defer src="/Scripts/jquery.flexslider.js"></script>

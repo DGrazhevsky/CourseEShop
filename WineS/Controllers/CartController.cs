@@ -45,7 +45,7 @@ namespace WineS.Controllers
 
             if (product != null)
             {
-                cart.AddItem(product, 1,Size);
+                cart.AddItem(product, 1, Size);
             }
 
             return PartialView(cart);

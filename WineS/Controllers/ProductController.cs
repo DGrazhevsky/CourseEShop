@@ -91,7 +91,8 @@ namespace WineS.Controllers
             model.product = repository.Products.Where(x => x.Id == Id).First();
             model.RelatedProducts = repository.Products
                 .Where(x => x.Category == model.product.Category && x.Id != model.product.Id).Take(3);
-          
+            //Если тут будут ботинки и тд - делать свой размер, проверять сначала при получении айдишника
+            model.SizeList = new SelectList(new string[] { "XS", "S", "M", "L", "XL" });
             //  
             return View(model);
         }

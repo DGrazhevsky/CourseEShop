@@ -22,5 +22,7 @@ namespace WineS.ViewModels
         public IEnumerable<Product> RelatedProducts { get; set; }
 
         public string CategoryName { get; set; }
+        public SelectList SizeList { get; set; }
+        public string Size { get; set; }
     }
 }
