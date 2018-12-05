@@ -28,6 +28,7 @@ namespace WineS.Controllers
         {
             return Redirect(Request.UrlReferrer.ToString());
         }
+
         public ActionResult Register()
         {
             return View();
@@ -45,7 +46,15 @@ namespace WineS.Controllers
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Login", "Account");
+                    ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
+                        DefaultAuthenticationTypes.ApplicationCookie);
+                    claim.AddClaim(new Claim("FirstName", user.FirstName));
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, claim);
+                    return RedirectToAction("Main","Main");
                 }
                 else
                 {
@@ -75,6 +84,7 @@ namespace WineS.Controllers
             ViewBag.returnUrl = returnUrl.ToString();
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

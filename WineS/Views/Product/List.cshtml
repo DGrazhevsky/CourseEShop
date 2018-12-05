@@ -14,63 +14,45 @@
     <div class="products-page">
         <div class="products">
             <div class="product-listy">
-                <h2>our Products</h2>
+                <h2>Категории</h2>
                 <ul class="product-list">
-                    <li><a href="">New Products</a></li>
-                    <li><a href="">Old Products</a></li>
-                    <li><a href="">T-shirts</a></li>
-                    <li><a href="">pants</a></li>
-                    <li><a href="">Dress</a></li>
-                    <li><a href="">Shorts</a></li>
-                    <li><a href="#">Shirts</a></li>
-                    <li><a href="@Url.Action("Register", "Account")">Register</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Блузы и рубашки"})">Блузы и рубашки</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Платья и сарафаны"})">Платья и сарафаны</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Пиджаки и костюмы"})">Пиджаки и костюмы</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Толстовки и свитшоты"})">Толстовки и свитшоты</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Футболки и поло"})">Футболки и поло</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Топы и майки"})">Топы и майки</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Брюки и джинсы"})">Брюки и джинсы</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Юбки и шорты"})">Юбки и шорты</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Верхняя одежда" })">Верхняя одежда</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Домашняя одежда"})">Домашняя одежда</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Нижнее белье"})">Нижнее белье</a></li>
+                    <li><a href="@Url.Action("List", "Product", new {CategoryName = "Спортивная одежда"})">Спортивная одежда</a></li>
                 </ul>
             </div>
-            <div class="latest-bis">
-                <img src="/images/l4.jpg" class="img-responsive" alt="" />
-                <div class="offer">
-                    <p>40%</p>
-                    <small>Top Offer</small>
-                </div>
-            </div>
-            <div class="tags">
-                <h4 class="tag_head">Tags Widget</h4>
-                <ul class="tags_links">
-                    <li><a href="#">Kitesurf</a></li>
-                    <li><a href="#">Super</a></li>
-                    <li><a href="#">Duper</a></li>
-                    <li><a href="#">Theme</a></li>
-                    <li><a href="#">Men</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Equipment</a></li>
-                    <li><a href="#">Best</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Men</a></li>
-                    <li><a href="#">Apparel</a></li>
-                    <li><a href="#">Super</a></li>
-                    <li><a href="#">Duper</a></li>
-                    <li><a href="#">Theme</a></li>
-                    <li><a href="#">Responsive</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Equipment</a></li>
-                </ul>
-
-            </div>
+         
+            <script>
+                $('.product-list li').each(function(i,elem)
+                {
+                    if(elem.textContent=='@Model.CategoryName')
+                        elem.setAttribute("style", "background: #be854c;");
+                });
+            </script>
 
         </div>
         <div class="new-product">
             <div class="new-product-top">
                 <ul class="product-top-list">
-                    <li><a href="index.html">Home</a>&nbsp;<span>&gt;</span></li>
+                    <li><a href="index.html">Главная</a>&nbsp;<span>&gt;</span></li>
                     <li><span class="act">@Model.CategoryName</span>&nbsp;</li>
                 </ul>
-                <p class="back">@Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })</p>
+                <p class="back">@Html.ActionLink("Вернуться на предыдущую страницу", null, null, null, new { href = Request.UrlReferrer })</p>
                 <div class="clearfix"></div>
             </div>
             <div class="mens-toolbar">
                 <div class="sort">
                     <div class="sort-by">
-                        <label>Sort By</label>
+                        <label>Сортировать по</label>
                         @Html.DropDownListFor(m => m.PageSort, Model.PageSortList, new { id = "pageSorts" })
                         @*<select>
                             <option value="">
@@ -83,11 +65,11 @@
                                 Price
                             </option>
                         </select>*@
-                        <a href=""><img src="images/arrow2.gif" alt="" class="v-middle"></a>
+                        <a href=""><img src="/images/arrow2.gif" alt="" class="v-middle"></a>
                     </div>
                 </div>
                 <ul class="women_pagenation">
-                    <li>Page:</li>
+                    <li>Страница :</li>
                    @{
                        var x1 = Model.PageSort;
                    }
@@ -103,7 +85,7 @@
                 </div>
                 <div class="pages">
                     <div class="limiter visible-desktop">
-                        <label>Show</label>
+                        <label>Показать</label>
                         @*@Html.DropDownListFor(m=>m.PageSize, new SelectList(new int[] { 3, 6, 9 }), new { id = "pageItems"}))*@
                         
                         @Html.DropDownListFor(m => m.PageSize, Model.PageSizeList, new { id = "pageItems" })
@@ -145,41 +127,10 @@
                                     }
                                 )
                             })
-                            @*$(document).ready(function() {
-                                $("#items").change(function () {
-                                    var x = $('#items').val();
-                                    var url = '@Url.Action("ChangePageItems", "Product")';
-                                    $.post(url, { pageSize: x});
-                                    if (response.result == 'Redirect')
-                                        window.location = response.url;
-
-                                });
-                            })*@
+                           
                         </script>
 
-                        @*@Html.DropDownListFor(m=>m.PageSize, Model.PageSizeList, new { id = "items" })
-                        @Html.HiddenFor(m=>m.PageSize)*@
-                        
-
-                        @*@Html.DropDownList("pageItems", new SelectList(new int[] { 3, 6, 9 })))*@
-                       
-                        @*Html.DropDownList(
-                        string name,
-                        IEnumerable<SelectListItem> selectList,
-                        string optionLabel,
-                        object htmlAttributes)*@ 
-                        @*@Html.DropDownListFor(m => m.SelectedMake, Model.MakesList, new { id="ddlMake"})*@
-                        @*<select>
-                            <option value="" selected="selected">
-                                3
-                            </option>
-                            <option value="">
-                                6
-                            </option>
-                            <option value="">
-                                9
-                            </option>
-                        </select>*@ per page
+                       ПОЗИЦИЙ
                         
                         <script>
                             //$(document).ready(function() {
@@ -234,7 +185,7 @@
 <!-- content-section-ends -->
 <div class="other-products">
     <div class="container">
-        <h3 class="like text-center">Featured Collection</h3>
+        <h3 class="like text-center">ТОП ТОВАРОВ</h3>
         <ul id="flexiselDemo3">
             @foreach (var product in Model.RelatedProducts)
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WineS.Entities;
+using WineS.Models.Entities;
 
 namespace WineS.Models.Repositories
 {

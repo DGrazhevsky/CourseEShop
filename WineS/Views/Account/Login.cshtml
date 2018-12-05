@@ -1,24 +1,24 @@
 ﻿@model WineS.ViewModels.LoginViewModel
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Cosily | вход";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="content">
+<link href="/Content/style.css" rel="stylesheet" type="text/css" media="all" />
     <div class="container">
         <div class="login-page">
             <div class="dreamcrub">
                 <ul class="breadcrumbs">
                     <li class="home">
-                        <a href="@Url.Action("Main", "Main")" title="Go to Home Page">Home</a>&nbsp;
+                        <a href="@Url.Action("Main", "Main")" title="Go to Home Page">Главная</a>&nbsp;
                         <span>&gt;</span>
                     </li>
                     <li>
-                        Login
+                        Вход
                     </li>
                 </ul>
                 <ul class="previous">
-                    <li>@Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer})</li>
+                    <li>@Html.ActionLink("Вернуться на предыдущую страницу", null, null, null, new { href = Request.UrlReferrer})</li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -26,42 +26,33 @@
             {
                 <h2>Sorry, but you must be authenticated</h2>
             }
-
-
             <div class="account_grid">
-                <div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
-                    <h2>NEW CUSTOMERS</h2>
-                    <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
-                    <a class="acount-btn" href="@Url.Action("Register", "Account")">Create an Account</a>
-                </div>
                 <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
-                    <h3>REGISTERED CUSTOMERS</h3>
-                    <p>If you have an account with us, please log in.</p>
+                    <h3>ВХОД НА САЙТ</h3>
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
                         <form>
                             <div>
-                                @Html.ValidationSummary()
-                              
                                 <input type="hidden" name="returnUrl" value="@Request.UrlReferrer" />
-                                @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
-                                <span>Email Address<label></label></span>
+                                <span>Email<label></label></span>
                                 @Html.EditorFor(x => x.Email)
-                                @*<input type="text">*@
                             </div>
                             <div>
-                                <span>Password<label></label></span>
+                                <span>Пароль<label></label></span>
                                 @Html.EditorFor(x => x.Password)
-                                @*<input type="password">*@
                             </div>
-                            <a class="forgot" href="#">Forgot Your Password?</a>
-                            <input type="submit" value="Login">
+                            <a class="forgot" href="#">Забыли пароль?</a>
+                            <input type="submit" value="ВХОД">
                         </form>
                     }
+                    </div>
+                <div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
+                    <h2>РЕГИСТРАЦИЯ</h2>
+                    <p>Создав учетную запись в нашем магазине, вы сможете быстрее переходить через процесс оформления заказа, хранить несколько адресов доставки, просматривать и отслеживать свои заказы в своей учетной записи и многое другое.</p>
+                    <a class="acount-btn" href="@Url.Action("Register", "Account")">ЗАРЕГИСТРИРОВАТЬСЯ</a>
                 </div>
                 <div class="clearfix"> </div>
             </div>
         </div>
     </div>
-</div>

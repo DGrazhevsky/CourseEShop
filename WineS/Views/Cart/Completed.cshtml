@@ -1,7 +1,96 @@
 ﻿
+
+
+@model WineS.ViewModels.CartViewModel
 @{
-    ViewBag.Title = "Заказ получен";
+    ViewBag.Title = "Cosily | корзина";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Ура! Вы заказали вино!</h2>
-<p>Скоро отправим!</p>
+
+
+
+
+<div class="cart-items">
+    <div class="container">
+        <div class="dreamcrub">
+            <ul class="breadcrumbs">
+                <li class="home">
+                    <a href="@Url.Action("Main", "Main")" title="Go to Home Page">Главная</a>&nbsp;
+                    <span>&gt;</span>
+                </li>
+                <li>
+                    Корзина
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <h8>Cпасибо за заказ!</h8>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@model WineS.ViewModels.CartViewModel
+
+    @{
+        ViewBag.Title = "Ваша корзина";
+    }
+
+    <table class="table">
+        <head>
+            <tr>
+                <th>Кол-во</th>
+                <th>Винцо</th>
+                <th class="text-right">Цена</th>
+                <th class="text-right">Общая цена</th>
+            </tr>
+        </head>
+        <tbody>
+            @foreach (var line in Model.Cart.Lines)
+            {
+                <tr>
+                    <td class="text-center">@line.Quantity</td>
+                    <td class="text-left">@line.Wine.Title</td>
+                    <td class="text-right">@line.Wine.Price.ToString("# грн")</td>
+                    <td class="text-right">
+                        @((line.Quantity * line.Wine.Price).ToString("# грн"))
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                        {
+                            @Html.Hidden("Id", line.Wine.Id)
+                            @Html.HiddenFor(x => x.ReturnUrl)
+                            <input class="btn btn-sm btn-warning" type="submit" value="Удалить" />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Итого:</td>
+                <td class="text-right">
+                    @Model.Cart.ComputeTotalValue().ToString("# грн")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="text-center">
+        <a class="btn btn-primary" href="@Model.ReturnUrl">Продолжить покупки</a>
+        @Html.ActionLink("Оформить заказ", "Checkout", null, new { @class = "btn btn-primary" })
+    </div>
+
+    </div>*@

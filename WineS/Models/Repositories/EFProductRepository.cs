@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using WineS.Entities;
 using WineS.Models.Context;
+using WineS.Models.Entities;
 
 namespace WineS.Models.Repositories
 {
@@ -16,7 +17,7 @@ namespace WineS.Models.Repositories
         {
             get { return context.Products; }
         }
-
+    
 
         public Product getProduct(int Id)
         {
@@ -37,9 +38,11 @@ namespace WineS.Models.Repositories
             get { return context.OrderProducts; }
         }
 
+        public IEnumerable<Category> Categories {
+            get { return context.Categories; }
+        }
 
-
-        public void SaveProduct(Product product)
+public void SaveProduct(Product product)
         {
             if (product.Id == 0)
                 context.Products.Add(product);
@@ -50,7 +53,6 @@ namespace WineS.Models.Repositories
                 {
                     dbEntry.Title = product.Title;
 
-                    dbEntry.Country = product.Country;
                     dbEntry.Manufacturer = product.Manufacturer;
                     ;
                     dbEntry.Price = product.Price;
@@ -58,7 +60,7 @@ namespace WineS.Models.Repositories
       
          
                     dbEntry.Description = product.Description;
-                    dbEntry.Category = product.Category;
+
                     dbEntry.DateOfArrival = product.DateOfArrival;
                 }
             }

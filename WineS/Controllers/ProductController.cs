@@ -8,7 +8,7 @@ using WineS.Entities;
 using WineS.Models.Pages;
 using WineS.Models.Repositories;
 using WineS.ViewModels;
-
+using Microsoft.EntityFrameworkCore;
 namespace WineS.Controllers
 {
     public class ProductController : Controller
@@ -42,40 +42,54 @@ namespace WineS.Controllers
             //return Json(new {result = "Redirect", url = Url.Action("List", "Product", new { pageSize = Convert.ToInt32(pageSize) }}}))};
             //return RedirectToActionPermanent("List", new {pageSize = Convert.ToInt32(pageSize)});
         }
-        public ViewResult List(string CategoryName = "Products", string Sort = "Name", int page = 1, int pageSize = 3)
+        public ViewResult List(string CategoryName = "Каталог", string Sort = "Популярности", int page = 1, int pageSize = 3)
         {
 
             ProductListViewModel model = new ProductListViewModel();
             switch (Sort)
             {
-                case "Name":
+                case "Названию":
                     model.Products = repository.Products
+                        .Where(p => CategoryName == "Каталог" || p.CategoryId ==
+                                                repository.Categories.Where(c => c.CategoryName == CategoryName).Select(c => c.Id).Single())
                         .OrderBy(product => product.Title)
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize);
                     break;
-                case "Price":
+                case "Цене":
                     model.Products = repository.Products
+                        .Where(p => CategoryName == "Каталог" || p.CategoryId ==
+                                    repository.Categories.Where(c => c.CategoryName == CategoryName).Select(c => c.Id).Single())
                         .OrderBy(product => product.Price)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize);
+                    break;
+                case "Популярности":
+                    model.Products = repository.Products
+                        .Where(p => CategoryName == "Каталог" || p.CategoryId ==
+                                    repository.Categories.Where(c => c.CategoryName == CategoryName).Select(c => c.Id).Single())
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize);
                     break;
                 default:
                     model.Products = repository.Products
+                        .Where(p => CategoryName == "Каталог" || p.CategoryId ==
+                                    repository.Categories.Where(c => c.CategoryName == CategoryName).Select(c => c.Id).Single())
                         .OrderBy(product => product.Title)
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize);
                     break;
             }
- 
             model.PagingInfo = new Catalog
             {
                 CurrentPage = page,
                 ItemsPerPage = pageSize,
-                TotalItems = repository.Products.Count()
+                TotalItems = CategoryName == "Каталог" ?
+                    repository.Products.Count():
+                    repository.Products.Where(p => p.CategoryId == repository.Categories.Where(c => c.CategoryName == CategoryName).Select(c => c.Id).Single()).Count()
             };
-            model.PageSizeList = new SelectList(new int[] {2, 3, 4});
-            model.PageSortList = new SelectList(new string[] {"Name", "Price"});
+            model.PageSizeList = new SelectList(new int[] {3, 6, 9});
+            model.PageSortList = new SelectList(new string[] {"Популярности","Названию", "Цене"});
             model.PageSize = pageSize.ToString();
             model.PageSort = Sort;
             model.CategoryName = CategoryName;
@@ -89,8 +103,12 @@ namespace WineS.Controllers
         {
             ProductListViewModel model = new ProductListViewModel();
             model.product = repository.Products.Where(x => x.Id == Id).First();
+            model.CategoryName = repository.Categories
+                .Where(p => p.Id == model.product.CategoryId).Select(pl => pl.CategoryName).FirstOrDefault();
+       
+
             model.RelatedProducts = repository.Products
-                .Where(x => x.Category == model.product.Category && x.Id != model.product.Id).Take(3);
+               .Where(x => x.Category == model.product.Category && x.Id != model.product.Id).Take(3);
             //Если тут будут ботинки и тд - делать свой размер, проверять сначала при получении айдишника
             model.SizeList = new SelectList(new string[] { "XS", "S", "M", "L", "XL" });
             //  

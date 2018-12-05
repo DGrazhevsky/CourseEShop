@@ -85,15 +85,38 @@ namespace WineS.Controllers
             {
                 
                
-                    //orderProcessor.SendOrders(cart, shippingDetails);
-                    cart.Clear();
-                    return RedirectToAction("Completed", "Cart");
+                   // orderProcessor.SendOrders(cart, shippingDetails);
+                    //cart.Clear();
+                    return RedirectToAction("OrderConfirm", "Cart");
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
             
+        }
+
+        public ViewResult OrderConfirm(Cart cart)
+        {
+            return View(new ShippingInfo());
+        }
+
+        [HttpPost]
+        public RedirectToRouteResult OrderConfirm(Cart cart, ShippingInfo shippinginfo)
+        {
+
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Извините, ваша корзина пуста!");
+
+            }
+         
+
+                orderProcessor.SendOrders(cart, shippinginfo);
+                cart.Clear();
+                return RedirectToAction("Completed", "Cart");
+     
+
         }
 
         public ViewResult Completed()

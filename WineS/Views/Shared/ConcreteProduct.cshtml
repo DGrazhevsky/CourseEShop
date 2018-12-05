@@ -9,13 +9,13 @@
                             <img src="@Url.Action("GetImage", "Product",
                                           new { gameId = Model.Id})" class="img-responsive" alt=""/>
                             <div class="mask">
-                                <div class="info">Quick View</div>
+                                <div class="info">Просмотр</div>
                             </div>
                             <div class="product_container">
                                 <div class="cart-left">
                                     <p class="title">@Model.Title</p>
                                 </div>
-                                <div class="pricey"><span class="item_price">@Model.Price</span></div>
+                                <div class="pricey"><span class="item_price">@Model.Price ₽</span></div>
                                 <div class="clearfix"></div>
                             </div>		
                         </div>
@@ -23,10 +23,10 @@
                 </div>
             </div>
         </a>
-        <div class="cbp-vm-details">
+        @*<div class="cbp-vm-details">
             Silver beet shallot wakame tomatillo salsify mung bean beetroot groundnut.
-        </div>
-@Ajax.ActionLink(" Add to cart", "AddToCart", "Cart", 
+        </div>*@
+@Ajax.ActionLink("В КОРЗИНУ", "AddToCart", "Cart", 
                                                      new {returnUrl = Request.Url.PathAndQuery, Id = Model.Id},
                                                      new AjaxOptions { UpdateTargetId = "ajaxexampl" }, new {@class = "cbp-vm-icon cbp-vm-add item_add"})
 

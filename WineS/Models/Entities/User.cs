@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using WineS.Entities;
 
 namespace WineS.Models.Entities
 {
@@ -13,10 +14,6 @@ namespace WineS.Models.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
 
-        public User()
-        {
-
-        }
+    }
  
     }
-}

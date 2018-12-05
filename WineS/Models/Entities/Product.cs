@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using WineS.Models.Entities;
 
 namespace WineS.Entities
 {
@@ -21,24 +22,25 @@ namespace WineS.Entities
         [Required(ErrorMessage = "Укажите цену")]
         [Range(0, int.MaxValue, ErrorMessage = "Требуется положительное значение цены")]
         public int Price { get; set; }
-        [Display(Name = "Страна происхождения")]
-        public string Country { get; set; }
+
         [Display(Name = "Произведено в")]
         [Required(ErrorMessage = "Укажите производителя")]
         public string Manufacturer { get; set; }
+
         [Display(Name = "Цвет")]
         [Required(ErrorMessage = "Укажите цвет")]
         public string Color { get; set; }
+
         [Required(ErrorMessage = "Укажите дату")]
         public DateTime DateOfArrival { get; set; }
-        [Display(Name = "Размер")]
-        //[Required(ErrorMessage = "Укажите размер")]
-        //public string Size { get; set; }
+
         public string Description { get; set; }
-        public string Category { get; set; }
-    
+        public string Consist { get; set; }
         public byte[] Image { get; set; }
-        [HiddenInput(DisplayValue = false)]
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
         public ICollection<OrderProduct> ProductOrders { get; set; }
         public Product()
         {

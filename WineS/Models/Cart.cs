@@ -13,7 +13,7 @@ namespace WineS.Models
         public void AddItem(Product product, int quantity, string size)
         {
             CartLine line = lineCollection
-                .Where(g => g.Product.Id == product.Id)
+                .Where(g => g.Product.Id == product.Id && g.Size == size)
                 .FirstOrDefault();
 
             if (line == null)
