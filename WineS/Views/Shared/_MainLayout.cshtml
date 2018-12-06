@@ -28,7 +28,7 @@
                         {
                             var claims = ((System.Security.Claims.ClaimsIdentity)User.Identity).Claims;
                             var claim = claims.SingleOrDefault(m => m.Type == "FirstName");
-                            <li><a href="@Url.Action("Login", "Account")"><span class="glyphicon glyphicon-user"> </span>@claim.Value</a></li>
+                            <li><a href="@Url.Action("UserAccount", "User")"><span class="glyphicon glyphicon-user"> </span>@claim.Value</a></li>
                             <li><a href="@Url.Action("Logout", "Account")"><span class="glyphicon glyphicon-user"> </span>Выход</a></li>
 
                         }

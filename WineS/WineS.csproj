@@ -269,6 +269,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WineController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -290,6 +291,7 @@
     <Compile Include="Models\Repositories\EFOrderRepository.cs" />
     <Compile Include="Models\Repositories\IOrderRepository.cs" />
     <Compile Include="Models\ShippingInfo.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />
@@ -421,6 +423,7 @@
     <Content Include="Views\Contact\Contact.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Cart\OrderConfirm.cshtml" />
+    <Content Include="Views\User\UserAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

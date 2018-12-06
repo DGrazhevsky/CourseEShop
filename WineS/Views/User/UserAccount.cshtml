@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNet.Identity
+@model WineS.Models.UserProfile
+@{
+    ViewBag.Title = "Cosily | вход";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="login-page">
+        <div class="PersonalCabinet">
+
+            <h3>Личный кабинет</h3>
+
+            <div class="menu2">
+                <ul class="" role="tablist">
+                    <li role="presentation" class="active"><a class="not" href="#info" aria-controls="home" role="tab" data-toggle="tab">Личная информация</a></li>
+                    <li role="presentation"><a class="not" href="#history" aria-controls="profile" role="tab" data-toggle="tab">История заказов</a></li>
+                </ul>
+                <div class="clear"></div>
+                <div role="tabpanel" class="Tab__content active" id="info">
+                    <div class="PersonalCabinet__container">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="PersonalCabinet__input-container">
+                            <table class="PersonalCabinet__input-table">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <label for="name">Имя</label>
+                                        @Html.TextBoxFor(x => x.FirstName, new {@class = "form-control"})
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td><label for="name">Фамилия</label>
+                                        @Html.TextBoxFor(x => x.LastName, new {@class = "form-control"})</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="email">Email</label>
+                                        @Html.TextBoxFor(x => x.Email, new {@class = "form-control"})
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="text-center">
+                                            <input class="btn btn-primary" type="submit" value="Подтвердить заказ"/>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                   
+              
+
+                        <div class="PersonalCabinet__input-container--subscribe">
+
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="Tab__content" id="history">
+                    <div class="PersonalCabinet__container product">
+
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

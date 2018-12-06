@@ -67,15 +67,18 @@ namespace WineS.Controllers
 
             return View(model);
         }
+       
 
 
         private IAuthenticationManager AuthenticationManager
         {
             get { return HttpContext.GetOwinContext().Authentication; }
         }
+      
 
         public ActionResult Login()
         {
+            
             var returnUrl = Request.UrlReferrer;
             //if (fromCart == true)
             //    ViewBag.fromCart = true;
